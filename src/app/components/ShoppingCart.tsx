@@ -38,6 +38,7 @@ export const ShoppingCart = ({ cart }: Readonly<{ cart: Cart }>) => {
         className={`w-11/12 max-w-96 bg-white fixed top-0 right-0 h-screen p-4 transition-all z-40 overflow-y-auto ${
           isOpen ? "cart-open translate-x-0 shadow-2xl" : "translate-x-full"
         }`}
+        aria-expanded={isOpen}
       >
         <div className="flex gap-2 flex-col">
           <div className="flex justify-between items-center w-full mb-2">

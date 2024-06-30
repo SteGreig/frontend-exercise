@@ -29,15 +29,16 @@ export const SideNav = (props: propTypes) => {
         <SlidersHorizontalIcon />
         <span className="ml-1">Product Categories</span>
       </button>
-      <div
+      <nav
         className={`${
           isMenuOpen
             ? "menu-open translate-x-0"
             : "-translate-x-full md:translate-x-0"
         } bg-gray-800 selection:bg-gray-600 text-gray-300 w-3/4 md:w-auto transition max-w-96 md:max-w-none fixed md:sticky top-0 md:top-4 left-0 z-20 h-screen overflow-y-auto col-span-1 md:rounded-xl p-6 md:p-4 xl:p-6 md:pb-12 xl:pb-12`}
+        aria-expanded={isMenuOpen}
       >
         <button
-          aria-label="Close Basket"
+          aria-label="Close Menu"
           className="fixed top-4 right-4 p-2 rounded-full hover:bg-gray-200 transition duration-200 md:hidden"
           onClick={() => setIsMenuOpen(false)}
           tabIndex={isMenuOpen ? 0 : -1}
@@ -69,7 +70,7 @@ export const SideNav = (props: propTypes) => {
             </div>
           );
         })}
-      </div>
+      </nav>
       <div
         onClick={() => setIsMenuOpen(false)}
         className={`bg-black/60 fixed top-0 right-0 h-screen w-screen z-10 transition ${
