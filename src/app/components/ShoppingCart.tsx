@@ -26,6 +26,7 @@ export type Cart = {
 
 type Props = Readonly<{
   children: React.ReactNode;
+  cart: Cart;
 }>;
 
 export const ShoppingCart = ({ cart }: Readonly<{ cart: Cart }>) => {
@@ -113,8 +114,8 @@ export const ShoppingCart = ({ cart }: Readonly<{ cart: Cart }>) => {
   );
 };
 
-export const ShoppingCartButton = ({ cartCount }: { cartCount: number }) => {
-  const { setIsOpen } = useShoppingCart();
+export const ShoppingCartButton = () => {
+  const { setIsOpen, cartCount } = useShoppingCart();
 
   return (
     <button
@@ -133,21 +134,28 @@ export const ShoppingCartButton = ({ cartCount }: { cartCount: number }) => {
 type ShoppingCartState = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  cartCount: number;
 };
 
 export const ShoppingCartContext = createContext<ShoppingCartState>({
   isOpen: false,
   setIsOpen: () => {},
+  cartCount: 0,
 });
 
 export const useShoppingCart = (): ShoppingCartState =>
   useContext(ShoppingCartContext);
 
-export const ShoppingCartProvider = ({ children }: Props) => {
+export const ShoppingCartProvider = ({ children, cart }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const cartCount = cart.products.reduce(
+    (count, item) => count + item.quantity,
+    0
+  );
+
   return (
-    <ShoppingCartContext.Provider value={{ isOpen, setIsOpen }}>
+    <ShoppingCartContext.Provider value={{ isOpen, setIsOpen, cartCount }}>
       {children}
     </ShoppingCartContext.Provider>
   );

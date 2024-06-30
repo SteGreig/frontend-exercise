@@ -39,12 +39,11 @@ type Props = Readonly<{
 
 export default async function RootLayout({ children }: Props) {
   const cart = await fetchCart();
-  const cartCount = cart.products.length;
 
   return (
     <html className="scroll-smooth" lang="en">
       <body className={inter.className}>
-        <ShoppingCartProvider>
+        <ShoppingCartProvider cart={cart}>
           <div className="px-3 py-4 xl:px-6 bg-white border-b flex justify-center">
             <div className="w-full flex justify-between">
               <Image
@@ -53,7 +52,7 @@ export default async function RootLayout({ children }: Props) {
                 width="174"
                 height="26"
               />
-              <ShoppingCartButton cartCount={cartCount} />
+              <ShoppingCartButton />
               <ShoppingCart cart={cart} />
             </div>
           </div>
