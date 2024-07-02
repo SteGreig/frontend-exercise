@@ -11,7 +11,7 @@ type propTypes = {
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
   categories: CategoryType[];
   products: ProductType[];
-  setSelectedCats: (value: string[]) => string[];
+  setSelectedCats: any;
   selectedCats: string[];
 };
 
