@@ -11,6 +11,8 @@ type propTypes = {
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
   categories: CategoryType[];
   products: ProductType[];
+  setSelectedCats: (value: string[]) => string[];
+  selectedCats: string[];
 };
 
 export const SideNav = (props: propTypes) => {
@@ -18,6 +20,15 @@ export const SideNav = (props: propTypes) => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const checkboxHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const val = event.target.value;
+    if (event.target.checked) {
+      props.setSelectedCats([...props.selectedCats, val]);
+    } else {
+      props.setSelectedCats(props.selectedCats.filter((cat) => cat !== val));
+    }
   };
 
   return (
@@ -59,14 +70,16 @@ export const SideNav = (props: propTypes) => {
           ).length;
           return (
             <div key={category.slug}>
-              <a
-                className="block py-3 md:hover:text-white text-sm border-b border-white/10"
-                href={`#${category.slug}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
+              <input
+                type="checkbox"
+                value={category.slug}
+                onChange={checkboxHandler}
+                id={category.slug}
+              />
+              <label htmlFor={category.slug}>
                 {category.name}
                 <span className="text-xs opacity-50 ml-1">({count})</span>
-              </a>
+              </label>
             </div>
           );
         })}
